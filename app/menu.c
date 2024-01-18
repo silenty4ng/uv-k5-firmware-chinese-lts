@@ -374,7 +374,7 @@ int MENU_GetLimits(uint8_t menu_id, int32_t *pMin, int32_t *pMax) {
             *pMin = 0;
 
 #ifdef ENABLE_SIDEFUNCTIONS_SEND
-            *pMax = gSubMenu_SIDEFUNCTIONS_size-3;
+            *pMax = gSubMenu_SIDEFUNCTIONS_size-4;
 
 #else
 			*pMax =gSubMenu_SIDEFUNCTIONS_size-1;

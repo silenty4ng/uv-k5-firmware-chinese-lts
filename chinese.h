@@ -150,6 +150,7 @@
 #ifdef ENABLE_SIDEFUNCTIONS_SEND
 #define A信道发射 "A\x1C\x1D\x0E\xC8"
 #define B信道发射 "B\x1C\x1D\x0E\xC8"
+#define 副信道发射 "\xCA\x1C\x1D\x0E\xC8"
 #endif
 
 #endif
@@ -310,6 +311,7 @@
 #ifdef ENABLE_SIDEFUNCTIONS_SEND
 #define A信道发射 "A\x89\x89\x92\xC8\x81\x9A\x8C\x89"
 #define B信道发射 "B\x89\x89\x92\xC8\x81\x9A\x8C\x89"
+#define 副信道发射 "\x8E\x8D\x89\x89\x92\xC8\x81\x9A\x8C\x89"
 #endif
 #endif
 
