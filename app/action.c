@@ -332,6 +332,7 @@ void ACTION_Handle(KEY_Code_t Key, bool bKeyPressed, bool bKeyHeld)
 		
 #ifdef ENABLE_SIDEFUNCTIONS_SEND
 		if(funcShort == ACTION_OPT_SEND_A || funcShort == ACTION_OPT_SEND_B || funcShort == ACTION_OPT_SEND_OTHER){
+			gBeepToPlay = BEEP_NONE;
 			gFlagLastVfo = gEeprom.TX_VFO;
 			gEeprom.TX_VFO = funcShort == ACTION_OPT_SEND_OTHER ? !gFlagLastVfo : funcShort == ACTION_OPT_SEND_A ? 0 : 1;
 			gFlagReconfigureVfos  = true;
