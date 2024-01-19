@@ -1694,13 +1694,13 @@ static void ProcessKey(KEY_Code_t Key, bool bKeyPressed, bool bKeyHeld)
             // KEY_MENU has a special treatment here, because we want to pass hold event to ACTION_Handle
             // but we don't want it to complain when initial press happens
             // we want to react on realese instead
+#ifdef ENABLE_CUSTOM_SIDEFUNCTIONS
         else if (Key != KEY_SIDE1 && Key != KEY_SIDE2 &&        // pass side buttons
-                 !(Key == KEY_MENU && bKeyHeld)) // pass KEY_MENU held
+                 !(Key == KEY_MENU && bKeyHeld && gEeprom.KEY_M_LONG_PRESS_ACTION == ACTION_OPT_KEYLOCK)) // pass KEY_MENU held
+#else
+        else if (Key != KEY_SIDE1 && Key != KEY_SIDE2) // pass KEY_MENU held
+#endif
         {
-            if ((!bKeyPressed || bKeyHeld || (Key == KEY_MENU && bKeyPressed)) && // prevent released or held, prevent KEY_MENU pressed
-                !(Key == KEY_MENU && !bKeyPressed))  // pass KEY_MENU released
-                return;
-
             // keypad is locked, tell the user
             AUDIO_PlayBeep(BEEP_500HZ_60MS_DOUBLE_BEEP_OPTIONAL);
             gKeypadLocked  = 4;          // 2 seconds
