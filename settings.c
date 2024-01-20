@@ -124,15 +124,16 @@ void SETTINGS_InitEEPROM(void)
     gEeprom.POWER_ON_DISPLAY_MODE        = (Data[7] < 4)              ? Data[7] : POWER_ON_DISPLAY_MODE_NONE;
 #endif
 
-#ifdef ENABLE_CUSTOM_SIDEFUNCTIONS
     // 1FF8..1FFF
     EEPROM_ReadBuffer(0x1FF8, Data, 8);
+#ifdef ENABLE_CUSTOM_SIDEFUNCTIONS
     gEeprom.KEY_M_LONG_PRESS_ACTION       = (Data[0] < ACTION_OPT_LEN) ? Data[0] : ACTION_OPT_SWITCH_DEMODUL;
     gEeprom.KEY_1_SHORT_PRESS_ACTION      = (Data[1] < ACTION_OPT_LEN-3) ? Data[1] : ACTION_OPT_MONITOR;
     gEeprom.KEY_1_LONG_PRESS_ACTION       = (Data[2] < ACTION_OPT_LEN) ? Data[2] : ACTION_OPT_D_DCD;
     gEeprom.KEY_2_SHORT_PRESS_ACTION      = (Data[3] < ACTION_OPT_LEN-3) ? Data[3] : ACTION_OPT_WIDTH;
     gEeprom.KEY_2_LONG_PRESS_ACTION       = (Data[4] < ACTION_OPT_LEN) ? Data[4] : ACTION_OPT_FLASHLIGHT;
 #endif
+    gEeprom.MDC_AUDIO_LOCAL = Data[5];
 
     // 0E98..0E9F
     EEPROM_ReadBuffer(0x0E98, Data, 8);

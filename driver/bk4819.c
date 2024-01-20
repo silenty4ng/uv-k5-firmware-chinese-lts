@@ -1759,8 +1759,12 @@ void BK4819_PrepareFSKReceive(void)
 #endif
 
     BK4819_EnterTxMute();
-    AUDIO_AudioPathOn();
-    BK4819_SetAF(BK4819_AF_BEEP);
+    if(gEeprom.MDC_AUDIO_LOCAL){
+        AUDIO_AudioPathOn();
+        BK4819_SetAF(BK4819_AF_BEEP);
+    }else{
+        BK4819_SetAF(BK4819_AF_MUTE);
+    }
 
     BK4819_WriteRegister(BK4819_REG_70, BK4819_REG_70_ENABLE_TONE1 | (66u << BK4819_REG_70_SHIFT_TONE1_TUNING_GAIN));
 
@@ -2173,14 +2177,13 @@ void BK4819_enable_mdc1200_rx(const bool enable)
 //			BK4819_REG_30_ENABLE_RX_DSP    |
 		0);
 
-		#if 0
-			GPIO_ClearBit(&GPIOC->DATA, 4);
-			BK4819_SetAF(BK4819_AF_MUTE);
-		#else
-			// let the user hear the FSK being sent
+        if(gEeprom.MDC_AUDIO_LOCAL){
 			BK4819_SetAF(BK4819_AF_BEEP);
 			GPIO_SetBit(&GPIOC->DATA, 4);
-		#endif
+        }else{
+			GPIO_ClearBit(&GPIOC->DATA, 4);
+			BK4819_SetAF(BK4819_AF_MUTE);
+        }
 //		SYSTEM_DelayMs(2);
 
 		// REG_51

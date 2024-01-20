@@ -208,6 +208,7 @@ typedef struct {
     uint8_t               KEY_2_SHORT_PRESS_ACTION;
     uint8_t               KEY_2_LONG_PRESS_ACTION;
 #endif
+    uint8_t               MDC_AUDIO_LOCAL;
     uint8_t               MIC_SENSITIVITY;
     uint8_t               MIC_SENSITIVITY_TUNING;
     uint8_t               CHAN_1_CALL;
