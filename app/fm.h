@@ -29,7 +29,15 @@ enum {
 };
 extern bool              FM_EXIT_FLAG;
 
-extern uint16_t          gFM_Channels[20];
+// 根据 ENABLE_CHINESE_FULL 宏的值来定义数组长度
+#if ENABLE_CHINESE_FULL != 4
+	#define FM_CHANNEL_COUNT 20
+#else
+	#define FM_CHANNEL_COUNT 30
+#endif
+
+
+extern uint16_t          gFM_Channels[FM_CHANNEL_COUNT];
 extern bool              gFmRadioMode;
 extern uint8_t           gFmRadioCountdown_500ms;
 extern volatile uint16_t gFmPlayCountdown_10ms;

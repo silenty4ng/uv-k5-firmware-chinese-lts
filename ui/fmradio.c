@@ -45,6 +45,7 @@ UI_DisplayClear();
 			pPrintStr = String;
 		} else {
 			pPrintStr = "VFO";
+			#if ENABLE_CHINESE_FULL != 4
 			for (unsigned int i = 0; i < 20; i++) {
 				if (gEeprom.FM_FrequencyPlaying == gFM_Channels[i]) {
 					sprintf(String, "VFO(CH%02u)", i + 1);
@@ -52,6 +53,16 @@ UI_DisplayClear();
 					break;
 				}
 			}
+			#else
+			for (unsigned int i = 0; i < 30; i++) {
+				if (gEeprom.FM_FrequencyPlaying == gFM_Channels[i]) {
+					sprintf(String, "VFO(CH%02u)", i + 1);
+					pPrintStr = String;
+					break;
+				}
+			}
+			#endif
+
 		}
 	} else if (gFM_AutoScan) {
 		sprintf(String, "A-SCAN(%u)", gFM_ChannelPosition + 1);
