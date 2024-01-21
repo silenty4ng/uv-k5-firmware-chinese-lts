@@ -36,7 +36,15 @@
 	#define ARRAY_SIZE(x) (sizeof(x) / sizeof(x[0]))
 #endif
 
-uint16_t          gFM_Channels[20];
+// 根据 ENABLE_CHINESE_FULL 宏的值来定义数组长度
+#if ENABLE_CHINESE_FULL != 4
+	#define FM_CHANNEL_COUNT 20
+#else
+	#define FM_CHANNEL_COUNT 30
+#endif
+
+
+uint16_t          gFM_Channels[FM_CHANNEL_COUNT];
 bool              gFmRadioMode;
 uint8_t           gFmRadioCountdown_500ms;
 volatile uint16_t gFmPlayCountdown_10ms;
@@ -124,10 +132,17 @@ void FM_EraseChannels(void)
 	uint8_t      Template[8];
 
 	memset(Template, 0xFF, sizeof(Template));
+#if ENABLE_CHINESE_FULL != 4
 	for (i = 0; i < 5; i++)
 		EEPROM_WriteBuffer(0x0E40 + (i * 8), Template,8);
 
 	memset(gFM_Channels, 0xFF, sizeof(gFM_Channels));
+#else
+	for (i = 0; i < 8; i++)
+		EEPROM_WriteBuffer(0x1FFC0 + (i * 8), Template,8);
+
+	memset(gFM_Channels, 0xFF, sizeof(gFM_Channels));
+#endif	
 }
 
 void FM_Tune(uint16_t Frequency, int8_t Step, bool bFlag)
@@ -209,7 +224,7 @@ if (BK1080_REG_07_GET_SNR(Test2) <= 2){
 
 	// not BLE(less than or equal)
 	if (Frequency > LowerLimit && (Frequency - BK1080_BaseFrequency) == 1) {
-		if (BK1080_FrequencyDeviation & 0x800 || (BK1080_FrequencyDeviation < 20))
+		if (BK1080_FrequencyDeviation & 0x800 || (BK1080_FrequencyDeviation < FM_CHANNEL_COUNT))
 			goto Bail;
 	}
 
@@ -304,7 +319,7 @@ static void Key_DIGITS(KEY_Code_t Key, uint8_t state)
 						return;
 					}
 				}
-				else if (Channel < 20) {
+				else if (Channel < FM_CHANNEL_COUNT) {
 #ifdef ENABLE_VOICE
 					gAnotherVoiceID = (VOICE_ID_t)Key;
 #endif
@@ -490,7 +505,7 @@ static void Key_UP_DOWN(uint8_t state, int8_t Step)
 
 	if (gAskToSave) {
 		gRequestDisplayScreen = DISPLAY_FM;
-		gFM_ChannelPosition   = NUMBER_AddWithWraparound(gFM_ChannelPosition, Step, 0, 19);
+		gFM_ChannelPosition   = NUMBER_AddWithWraparound(gFM_ChannelPosition, Step, 0, FM_CHANNEL_COUNT - 1);
 		return;
 	}
 
@@ -600,10 +615,10 @@ void FM_Play(void)
 			return;
 		}
 
-		if (gFM_ChannelPosition < 20)
+		if (gFM_ChannelPosition < FM_CHANNEL_COUNT)
 			gFM_Channels[gFM_ChannelPosition++] = gEeprom.FM_FrequencyPlaying;
 
-		if (gFM_ChannelPosition >= 20)
+		if (gFM_ChannelPosition >= FM_CHANNEL_COUNT)
 		{
 			FM_PlayAndUpdate();
 			GUI_SelectNextDisplay(DISPLAY_FM);
