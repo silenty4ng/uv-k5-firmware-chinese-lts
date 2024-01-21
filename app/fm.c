@@ -139,7 +139,7 @@ void FM_EraseChannels(void)
 	memset(gFM_Channels, 0xFF, sizeof(gFM_Channels));
 #else
 	for (i = 0; i < 8; i++)
-		EEPROM_WriteBuffer(0x1FFF0 + (i * 8), Template,8);
+		EEPROM_WriteBuffer(0x1FFC0 + (i * 8), Template,8);
 
 	memset(gFM_Channels, 0xFF, sizeof(gFM_Channels));
 #endif	
