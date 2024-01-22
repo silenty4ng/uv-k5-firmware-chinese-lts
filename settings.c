@@ -106,14 +106,14 @@ void SETTINGS_InitEEPROM(void)
 	}
 
 	// 0E40..0E67
-    //0x1FFF0..0x20000
+    //0x1FFC0..0x20000
         // 根据 ENABLE_CHINESE_FULL 宏的值来定义数组长度
 #if ENABLE_CHINESE_FULL != 4
     // 使用 0E40
     EEPROM_ReadBuffer(0x0E40, gFM_Channels, sizeof(gFM_Channels));
 #else
     // 使用 1E451
-    EEPROM_ReadBuffer(0x1FFF0 , gFM_Channels, sizeof(gFM_Channels));
+    EEPROM_ReadBuffer(0x1FFC0 , gFM_Channels, sizeof(gFM_Channels));
 #endif
 	// EEPROM_ReadBuffer(0x0E40, gFM_Channels, sizeof(gFM_Channels));
 	FM_ConfigureChannelState();
@@ -442,7 +442,7 @@ void SETTINGS_FactoryReset(bool bIsAll)
                          #if ENABLE_CHINESE_FULL != 4
                          !(i >= 0x0E40 && i < 0x0E70) &&     // FM Channels
                          #else
-                         !(i >= 0x1FFF0 && i < 0x20000) &&   // FM Channels
+                         !(i >= 0x1FFC0 && i < 0x20000) &&   // FM Channels
                          #endif
                          !(i >= 0x0E88 && i < 0x0E90)        // FM settings
                  ))
@@ -495,7 +495,7 @@ void SETTINGS_SaveFM(void)
 	
 #else
 		for (i = 0; i < 8; i++)
-	        EEPROM_WriteBuffer(0x1FFF0 + (i * 8), &gFM_Channels[i * 4],8);
+	        EEPROM_WriteBuffer(0x1FFC0 + (i * 8), &gFM_Channels[i * 4],8);
 
 			// EEPROM_WriteBuffer(0x0E40 + (i * 8), &gFM_Channels[i * 4],8);
 #endif
