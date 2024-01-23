@@ -41,7 +41,6 @@
 #include "ui/ui.h"
 
 center_line_t center_line = CENTER_LINE_NONE;
-unsigned int last_rx_vfo = -1;
 
 const int8_t dBmCorrTable[7] = {
         -15, // band 1

@@ -337,3 +337,4 @@ inline bool SerialConfigInProgress() { return gSerialConfigCountDown_500ms != 0;
 
 
 #endif
+extern unsigned int last_rx_vfo;
