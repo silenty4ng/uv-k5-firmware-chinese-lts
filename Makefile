@@ -62,7 +62,7 @@ ENABLE_AGC_SHOW_DATA          ?= 0
 ENABLE_TIMER		          ?= 0
 
 #############################################################
-PACKED_FILE_SUFFIX = LOSEHU117P6
+PACKED_FILE_SUFFIX = LOSEHU117P6G1
 ifeq ($(ENABLE_CHINESE_FULL),1)
     $(info font1)
     PACKED_FILE_SUFFIX = font1
