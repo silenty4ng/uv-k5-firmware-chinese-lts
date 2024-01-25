@@ -1675,8 +1675,12 @@ static void MENU_Key_UP_DOWN(bool bKeyPressed, bool bKeyHeld, int8_t Direction) 
     }
 
     if (!gIsInSubMenu) {
+#if ENABLE_LAYOUT_KEY_UP_DOWN==0
         gMenuCursor = NUMBER_AddWithWraparound(gMenuCursor, -Direction, 0, gMenuListCount - 1);
-
+#endif
+#if ENABLE_LAYOUT_KEY_UP_DOWN!=0
+        gMenuCursor = NUMBER_AddWithWraparound(gMenuCursor, Direction, 0, gMenuListCount - 1);
+#endif
         gFlagRefreshSetting = true;
 
         gRequestDisplayScreen = DISPLAY_MENU;

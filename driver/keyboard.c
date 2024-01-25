@@ -70,19 +70,29 @@ static const struct {
 	{	// Second row
 		.set_to_zero_mask = ~(1u << GPIOA_PIN_KEYBOARD_5) & 0xffff,
 		.pins = {
+#if ENABLE_LAYOUT_KEY_UP_DOWN!=1
 			{ .key = KEY_UP,    .pin = GPIOA_PIN_KEYBOARD_0},
-			{ .key = KEY_2 ,    .pin = GPIOA_PIN_KEYBOARD_1},
-			{ .key = KEY_5 ,    .pin = GPIOA_PIN_KEYBOARD_2},
-			{ .key = KEY_8 ,    .pin = GPIOA_PIN_KEYBOARD_3}
+#endif
+#if ENABLE_LAYOUT_KEY_UP_DOWN==1
+			{ .key = KEY_DOWN,  .pin = GPIOA_PIN_KEYBOARD_0},
+#endif
+			{ .key = KEY_2,     .pin = GPIOA_PIN_KEYBOARD_1},
+			{ .key = KEY_5,     .pin = GPIOA_PIN_KEYBOARD_2},
+			{ .key = KEY_8,     .pin = GPIOA_PIN_KEYBOARD_3}
 		}
 	},
 	{	// Third row
 		.set_to_zero_mask = ~(1u << GPIOA_PIN_KEYBOARD_6) & 0xffff,
 		.pins = {
+#if ENABLE_LAYOUT_KEY_UP_DOWN!=1
 			{ .key = KEY_DOWN,  .pin = GPIOA_PIN_KEYBOARD_0},
-			{ .key = KEY_3   ,  .pin = GPIOA_PIN_KEYBOARD_1},
-			{ .key = KEY_6   ,  .pin = GPIOA_PIN_KEYBOARD_2},
-			{ .key = KEY_9   ,  .pin = GPIOA_PIN_KEYBOARD_3}
+#endif
+#if ENABLE_LAYOUT_KEY_UP_DOWN==1
+			{ .key = KEY_UP,    .pin = GPIOA_PIN_KEYBOARD_0},
+#endif
+			{ .key = KEY_3,     .pin = GPIOA_PIN_KEYBOARD_1},
+			{ .key = KEY_6,     .pin = GPIOA_PIN_KEYBOARD_2},
+			{ .key = KEY_9,     .pin = GPIOA_PIN_KEYBOARD_3}
 		}
 	},
 	{	// Fourth row
@@ -90,8 +100,8 @@ static const struct {
 		.pins = {
 			{ .key = KEY_EXIT,  .pin = GPIOA_PIN_KEYBOARD_0},
 			{ .key = KEY_STAR,  .pin = GPIOA_PIN_KEYBOARD_1},
-			{ .key = KEY_0   ,  .pin = GPIOA_PIN_KEYBOARD_2},
-			{ .key = KEY_F   ,  .pin = GPIOA_PIN_KEYBOARD_3}
+			{ .key = KEY_0,     .pin = GPIOA_PIN_KEYBOARD_2},
+			{ .key = KEY_F,     .pin = GPIOA_PIN_KEYBOARD_3}
 		}
 	}
 };
