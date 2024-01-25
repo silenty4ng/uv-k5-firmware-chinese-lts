@@ -1675,7 +1675,13 @@ static void MENU_Key_UP_DOWN(bool bKeyPressed, bool bKeyHeld, int8_t Direction) 
     }
 
     if (!gIsInSubMenu) {
+#if ENABKE_GENERAL!=0
         gMenuCursor = NUMBER_AddWithWraparound(gMenuCursor, Direction, 0, gMenuListCount - 1);
+#endif
+
+#if ENABKE_GENERAL==0
+        gMenuCursor = NUMBER_AddWithWraparound(gMenuCursor, -Direction, 0, gMenuListCount - 1);
+#endif
 
         gFlagRefreshSetting = true;
 

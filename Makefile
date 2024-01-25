@@ -54,7 +54,9 @@ ENABLE_CHINESE_FULL 		   = 4
 ENABLE_DOCK 		          ?= 0
 ENABLE_CUSTOM_SIDEFUNCTIONS   ?= 1
 ENABLE_SIDEFUNCTIONS_SEND     ?= 1
-ENABLE_BLOCK     ?= 0
+ENABLE_BLOCK                  ?= 0
+
+ENABKE_GENERAL                ?= 0
 
 # ---- DEBUGGING ----
 ENABLE_AM_FIX_SHOW_DATA       ?= 0
@@ -62,7 +64,7 @@ ENABLE_AGC_SHOW_DATA          ?= 0
 ENABLE_TIMER		          ?= 0
 
 #############################################################
-PACKED_FILE_SUFFIX = LOSEHU117P6G2
+PACKED_FILE_SUFFIX = LOSEHU117P6
 ifeq ($(ENABLE_CHINESE_FULL),1)
     $(info font1)
     PACKED_FILE_SUFFIX = font1
@@ -81,6 +83,14 @@ endif
 ifeq ($(ENABLE_CHINESE_FULL),4)
     $(info K)
     PACKED_FILE_SUFFIX := $(PACKED_FILE_SUFFIX)K
+endif
+
+ifeq ($(ENABKE_GENERAL),1)
+    PACKED_FILE_SUFFIX := $(PACKED_FILE_SUFFIX)G1
+endif
+
+ifeq ($(ENABKE_GENERAL),2)
+    PACKED_FILE_SUFFIX := $(PACKED_FILE_SUFFIX)G2
 endif
 
 ifeq ($(ENABLE_CHINESE_FULL),0)
@@ -519,6 +529,14 @@ both:
 	$(MAKE) build ENABLE_CHINESE_FULL=0
 	$(MAKE) build ENABLE_CHINESE_FULL=4
 
+bothandgeneral:
+	$(RM) *.bin
+	$(MAKE) build ENABLE_CHINESE_FULL=0
+	$(MAKE) build ENABLE_CHINESE_FULL=4
+	$(MAKE) build ENABKE_GENERAL=1 ENABLE_CHINESE_FULL=0
+	$(MAKE) build ENABKE_GENERAL=2 ENABLE_CHINESE_FULL=0
+	$(MAKE) build ENABKE_GENERAL=1 ENABLE_CHINESE_FULL=4
+	$(MAKE) build ENABKE_GENERAL=2 ENABLE_CHINESE_FULL=4
 
 all:
 	$(MAKE) build
