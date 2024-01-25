@@ -65,6 +65,15 @@ ENABLE_TIMER		          ?= 0
 
 #############################################################
 PACKED_FILE_SUFFIX = LOSEHU117P6
+
+ifeq ($(ENABKE_GENERAL),1)
+    PACKED_FILE_SUFFIX := $(PACKED_FILE_SUFFIX)G1
+endif
+
+ifeq ($(ENABKE_GENERAL),2)
+    PACKED_FILE_SUFFIX := $(PACKED_FILE_SUFFIX)G2
+endif
+
 ifeq ($(ENABLE_CHINESE_FULL),1)
     $(info font1)
     PACKED_FILE_SUFFIX = font1
@@ -83,14 +92,6 @@ endif
 ifeq ($(ENABLE_CHINESE_FULL),4)
     $(info K)
     PACKED_FILE_SUFFIX := $(PACKED_FILE_SUFFIX)K
-endif
-
-ifeq ($(ENABKE_GENERAL),1)
-    PACKED_FILE_SUFFIX := $(PACKED_FILE_SUFFIX)G1
-endif
-
-ifeq ($(ENABKE_GENERAL),2)
-    PACKED_FILE_SUFFIX := $(PACKED_FILE_SUFFIX)G2
 endif
 
 ifeq ($(ENABLE_CHINESE_FULL),0)
